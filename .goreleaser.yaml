@@ -1,0 +1,23 @@
+project_name: gomatrix-lite
+
+builds:
+  - env: [CGO_ENABLED=0]
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - "386"
+      - arm
+      - arm64
+
+nfpms:
+  - maintainer: Alexandros Solanos <solanosalex@gmail.com>
+    description: A matrix screen written in go
+    homepage: https://github.com/hytromo/gomatrix-lite
+    license: MIT
+    formats:
+      - deb
+      - rpm
+      - apk
