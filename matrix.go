@@ -10,9 +10,20 @@ import (
 // the minimum length of a vertical string of characters
 const MIN_STRING_LENGTH = 8
 
-func initMatrix(xmax int, ymax int, colors *Colors) ([][]rune, []tcell.Style) {
+func initMatrix(xmax int, ymax int, config *Config) ([][]rune, []tcell.Style, tcell.Style, []uint64) {
+	// the characters
 	matrix := make([][]rune, xmax)
+	// the color of each row
 	colorGradient := make([]tcell.Style, ymax)
+	// controls the speed
+	columnDrag := make([]uint64, xmax)
+	// the start and end colors
+	colors := config.colors
+
+	characterStyleAttr := tcell.AttrNone
+	if config.bold {
+		characterStyleAttr = tcell.AttrBold
+	}
 
 	for i := 0; i < ymax; i++ {
 		if colors.start == colors.end && i > 0 {
@@ -24,16 +35,26 @@ func initMatrix(xmax int, ymax int, colors *Colors) ([][]rune, []tcell.Style) {
 					colors.end,
 					float32(i)/float32(ymax),
 				),
-			)
+			).Attributes(characterStyleAttr)
 		}
 	}
 
 	for i := range matrix {
 		matrix[i] = make([]rune, ymax)
+		if config.async {
+			columnDrag[i] = uint64(rand.Intn(6) + 5)
+		} else {
+			columnDrag[i] = 7
+		}
 	}
 
-	return matrix, colorGradient
+	whiteStyle := tcell.StyleDefault.Foreground(
+		tcell.ColorWhite,
+	).Attributes(characterStyleAttr)
+
+	return matrix, colorGradient, whiteStyle, columnDrag
 }
+
 func min(a, b int) int {
 	if a < b {
 		return a
@@ -41,25 +62,22 @@ func min(a, b int) int {
 	return b
 }
 
-func Matrix(xmax *int, ymax *int, waitTimeMs *int64, colors *Colors, _s *tcell.Screen) {
+func Matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell.Screen) {
 	xmaxOld := *xmax
 	ymaxOld := *ymax
+	config := *_config
 	minStringLength := min(MIN_STRING_LENGTH, *ymax)
 
 	s := *_s
 
-	matrix, colorGradient := initMatrix(*xmax, *ymax, colors)
-
-	whiteStyle := tcell.StyleDefault.Foreground(
-		tcell.ColorWhite,
-	)
+	matrix, colorGradient, whiteStyle, columnDrag := initMatrix(*xmax, *ymax, &config)
 
 	createHead := func(column int, row int) {
 		matrix[column][row] = rune(rand.Intn(94) + 33)
 		s.SetContent(column, row, matrix[column][row], nil, whiteStyle)
 	}
 
-	for {
+	for loopCounter := uint64(0); ; loopCounter++ {
 		s.Show()
 		afterLastDraw := time.Now()
 
@@ -68,7 +86,7 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *int64, colors *Colors, _s *tcell.S
 			xmaxOld = *xmax
 			ymaxOld = *ymax
 			minStringLength = min(MIN_STRING_LENGTH, *ymax)
-			matrix, colorGradient = initMatrix(*xmax, *ymax, colors)
+			matrix, colorGradient, whiteStyle, columnDrag = initMatrix(*xmax, *ymax, &config)
 		}
 
 		if minStringLength < 4 {
@@ -76,6 +94,10 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *int64, colors *Colors, _s *tcell.S
 		}
 
 		for column := range matrix {
+			columnShouldMove := loopCounter%columnDrag[column] == 0
+			if !columnShouldMove {
+				continue
+			}
 			last := len(matrix[column]) - 1
 			for row := last; row >= 0; row-- {
 				if row != 0 {
@@ -103,13 +125,13 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *int64, colors *Colors, _s *tcell.S
 					// row == 0
 					if matrix[column][row] == 0 {
 						// empty cell
-						if rand.Intn(*xmax/2) == 1 {
+						if rand.Intn(350/int(columnDrag[column])) == 1 {
 							// begin new head
 							createHead(column, row)
 						}
 					} else {
 						// cell with content
-						if rand.Intn(*ymax/2) == 1 {
+						if rand.Intn(100/int(columnDrag[column])) == 1 {
 							// this vertical-string has been chosen to be ended if it has the minimum length
 
 							hasMinLength := true
@@ -132,6 +154,6 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *int64, colors *Colors, _s *tcell.S
 		}
 
 		duration := time.Since(afterLastDraw)
-		time.Sleep(time.Duration((*waitTimeMs)-duration.Milliseconds()) * time.Millisecond)
+		time.Sleep(time.Duration((*waitTimeMs)-uint64(duration.Milliseconds())) * time.Millisecond)
 	}
 }
