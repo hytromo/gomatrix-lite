@@ -11,7 +11,11 @@ import (
 
 const VERSION = "0.0.1"
 
-func eventLoop(xmax *int, ymax *int, waitTimeMs *int64, _s *tcell.Screen) {
+func getWaitTimeForSpeed(speed rune) uint64 {
+	return 20 - uint64((speed-'0')*2)
+}
+
+func eventLoop(xmax *int, ymax *int, waitTimeMs *uint64, _s *tcell.Screen) {
 	s := *_s
 
 	for {
@@ -32,7 +36,7 @@ func eventLoop(xmax *int, ymax *int, waitTimeMs *int64, _s *tcell.Screen) {
 				s.Fini()
 				os.Exit(0)
 			} else if ev.Rune() >= '0' && ev.Rune() <= '9' {
-				(*waitTimeMs) = 95 - int64((ev.Rune()-'0')*10)
+				(*waitTimeMs) = getWaitTimeForSpeed(ev.Rune())
 			}
 		}
 	}
@@ -66,8 +70,8 @@ func main() {
 	defer quit()
 
 	xmax, ymax := s.Size()
-	var waitTime int64 = 35
+	var waitTime uint64 = getWaitTimeForSpeed('6')
 
-	go Matrix(&xmax, &ymax, &waitTime, &config.colors, &s)
+	go Matrix(&xmax, &ymax, &waitTime, &config, &s)
 	eventLoop(&xmax, &ymax, &waitTime, &s)
 }

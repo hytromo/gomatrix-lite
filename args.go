@@ -11,11 +11,17 @@ var opts struct {
 	Version bool `short:"v" long:"version" description:"Show version"`
 
 	Color string `short:"c" long:"color" description:"Matrix colors, can be up to 2 comma-separated colors for gradient" default:"000000,00FF00"`
+
+	NoAsync bool `long:"no-async" description:"Disable asynchronous mode, make every line has the same speed"`
+
+	NoBold bool `long:"no-bold" description:"Disable bold characters"`
 }
 
 type Config struct {
 	showVersion bool
 	colors      Colors
+	async       bool
+	bold        bool
 }
 
 func ParseArgs() Config {
@@ -37,5 +43,7 @@ func ParseArgs() Config {
 	return Config{
 		showVersion: opts.Version,
 		colors:      parseColors(opts.Color),
+		async:       !opts.NoAsync,
+		bold:        !opts.NoBold,
 	}
 }

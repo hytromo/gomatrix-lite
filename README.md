@@ -14,14 +14,17 @@ gomatrix-lite
 # Usage
 
 ```
-Usage of ./gomatrix-lite:
-  -c string
-        Matrix colors, can be up to 2 comma-separated colors for gradient (shorthand) (default "000000,00FF00")
-  -color string
-        Matrix colors, can be up to 2 comma-separated colors for gradient (default "000000,00FF00")
-  -v    Show version (shorthand)
-  -version
-        Show version
+Usage:
+  gomatrix-lite [OPTIONS]
+
+Application Options:
+  -v, --version   Show version
+  -c, --color=    Matrix colors, can be up to 2 comma-separated colors for gradient (default: 000000,00FF00)
+      --no-async  Disable asynchronous mode, make every line has the same speed
+      --no-bold   Disable bold characters
+
+Help Options:
+  -h, --help      Show this help message
 ```
 
 Use the numbers 0-9 to control the speed. Use `q` or Ctrl+C to quit the app.
