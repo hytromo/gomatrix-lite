@@ -70,7 +70,7 @@ func main() {
 	defer quit()
 
 	xmax, ymax := s.Size()
-	var waitTime uint64 = getWaitTimeForSpeed('6')
+	var waitTime uint64 = getWaitTimeForSpeed('7')
 
 	go Matrix(&xmax, &ymax, &waitTime, &config, &s)
 	eventLoop(&xmax, &ymax, &waitTime, &s)
