@@ -9,7 +9,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-const VERSION = "0.0.1"
+const VERSION = "0.0.2"
 
 func getWaitTimeForSpeed(speed rune) uint64 {
 	return 20 - uint64((speed-'0')*2)
