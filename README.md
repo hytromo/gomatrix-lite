@@ -28,6 +28,7 @@ Usage:
 Application Options:
   -v, --version   Show version
   -c, --color=    Matrix colors, can be up to 2 comma-separated colors for gradient (default: 000000,00FF00)
+  -s, --speed=    The speed, 0 through 9 (default: 8)
       --no-async  Disable asynchronous mode, make every line have the same speed
       --no-bold   Disable bold characters
       --pride     Add LGBT Pride flag colors, overrides -color
