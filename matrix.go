@@ -25,17 +25,31 @@ func initMatrix(xmax int, ymax int, config *Config) ([][]rune, []tcell.Style, tc
 		characterStyleAttr = tcell.AttrBold
 	}
 
-	for i := 0; i < ymax; i++ {
-		if colors.start == colors.end && i > 0 {
-			colorGradient[i] = colorGradient[0]
-		} else {
-			colorGradient[i] = tcell.StyleDefault.Foreground(
-				pickBetweenGradient(
-					colors.start,
-					colors.end,
-					float32(i)/float32(ymax),
-				),
-			).Attributes(characterStyleAttr)
+	if config.pride {
+		prideColors := []string{"#cc3516", "#eb9528", "#faee3b", "#3d7e2a", "#2d4efa", "#691a85"}
+		prideColorsCount := len(prideColors)
+		prideStyles := make([]tcell.Style, len(prideColors))
+
+		for i, color := range prideColors {
+			prideStyles[i] = tcell.StyleDefault.Foreground(tcell.GetColor(color)).Attributes(characterStyleAttr)
+		}
+
+		for i := 0; i < ymax; i++ {
+			colorGradient[i] = prideStyles[int((float32(i)/float32(ymax))*float32(prideColorsCount))]
+		}
+	} else {
+		for i := 0; i < ymax; i++ {
+			if colors.start == colors.end && i > 0 {
+				colorGradient[i] = colorGradient[0]
+			} else {
+				colorGradient[i] = tcell.StyleDefault.Foreground(
+					pickBetweenGradient(
+						colors.start,
+						colors.end,
+						float32(i)/float32(ymax),
+					),
+				).Attributes(characterStyleAttr)
+			}
 		}
 	}
 

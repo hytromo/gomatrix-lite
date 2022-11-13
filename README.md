@@ -5,6 +5,14 @@ gomatrix-lite
 <img src="./usage.gif" alt="Showcase of using the tool" width="800">
 <br>
 <br>
+<h2 align="center">
+Now with pride mode 🏳️‍🌈😎
+<br>
+<br>
+<img src="./pride.gif" alt="Showcase of using the pride flag" width="800">
+</h2>
+<br>
+<br>
 </h1>
 
 - [Usage](#usage)
@@ -22,6 +30,7 @@ Application Options:
   -c, --color=    Matrix colors, can be up to 2 comma-separated colors for gradient (default: 000000,00FF00)
       --no-async  Disable asynchronous mode, make every line has the same speed
       --no-bold   Disable bold characters
+      --pride     Add LGBT Pride flag colors, overrides -color
 
 Help Options:
   -h, --help      Show this help message
