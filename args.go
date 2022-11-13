@@ -12,6 +12,8 @@ var opts struct {
 
 	Color string `short:"c" long:"color" description:"Matrix colors, can be up to 2 comma-separated colors for gradient" default:"000000,00FF00"`
 
+	Speed int `short:"s" long:"speed" description:"The speed, 0 through 9" default:"8"`
+
 	NoAsync bool `long:"no-async" description:"Disable asynchronous mode, make every line have the same speed"`
 
 	NoBold bool `long:"no-bold" description:"Disable bold characters"`
@@ -22,6 +24,7 @@ var opts struct {
 type Config struct {
 	showVersion bool
 	colors      Colors
+	speed       int
 	async       bool
 	bold        bool
 	pride       bool
@@ -43,11 +46,16 @@ func ParseArgs() Config {
 		}
 	}
 
+	if opts.Speed < 0 || opts.Speed > 9 {
+		opts.Speed = 8
+	}
+
 	return Config{
 		showVersion: opts.Version,
 		colors:      parseColors(opts.Color),
 		async:       !opts.NoAsync,
 		bold:        !opts.NoBold,
 		pride:       opts.Pride,
+		speed:       opts.Speed,
 	}
 }

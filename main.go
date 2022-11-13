@@ -9,10 +9,10 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-const VERSION = "0.0.3"
+const VERSION = "0.0.4"
 
-func getWaitTimeForSpeed(speed rune) uint64 {
-	return 20 - uint64((speed-'0')*2)
+func getWaitTimeForSpeed(speed int) uint64 {
+	return 20 - uint64(speed*2)
 }
 
 func eventLoop(xmax *int, ymax *int, waitTimeMs *uint64, _s *tcell.Screen) {
@@ -36,7 +36,7 @@ func eventLoop(xmax *int, ymax *int, waitTimeMs *uint64, _s *tcell.Screen) {
 				s.Fini()
 				os.Exit(0)
 			} else if ev.Rune() >= '0' && ev.Rune() <= '9' {
-				(*waitTimeMs) = getWaitTimeForSpeed(ev.Rune())
+				(*waitTimeMs) = getWaitTimeForSpeed(int(ev.Rune() - '0'))
 			}
 		}
 	}
@@ -70,7 +70,7 @@ func main() {
 	defer quit()
 
 	xmax, ymax := s.Size()
-	var waitTime uint64 = getWaitTimeForSpeed('7')
+	var waitTime uint64 = getWaitTimeForSpeed(config.speed)
 
 	go Matrix(&xmax, &ymax, &waitTime, &config, &s)
 	eventLoop(&xmax, &ymax, &waitTime, &s)
