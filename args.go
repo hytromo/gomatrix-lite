@@ -12,7 +12,7 @@ var opts struct {
 
 	Color string `short:"c" long:"color" description:"Matrix colors, can be up to 2 comma-separated colors for gradient" default:"000000,00FF00"`
 
-	NoAsync bool `long:"no-async" description:"Disable asynchronous mode, make every line has the same speed"`
+	NoAsync bool `long:"no-async" description:"Disable asynchronous mode, make every line have the same speed"`
 
 	NoBold bool `long:"no-bold" description:"Disable bold characters"`
 
