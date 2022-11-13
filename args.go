@@ -15,6 +15,8 @@ var opts struct {
 	NoAsync bool `long:"no-async" description:"Disable asynchronous mode, make every line has the same speed"`
 
 	NoBold bool `long:"no-bold" description:"Disable bold characters"`
+
+	Pride bool `long:"pride" description:"Add LGBT Pride flag colors, overrides -color"`
 }
 
 type Config struct {
@@ -22,6 +24,7 @@ type Config struct {
 	colors      Colors
 	async       bool
 	bold        bool
+	pride       bool
 }
 
 func ParseArgs() Config {
@@ -45,5 +48,6 @@ func ParseArgs() Config {
 		colors:      parseColors(opts.Color),
 		async:       !opts.NoAsync,
 		bold:        !opts.NoBold,
+		pride:       opts.Pride,
 	}
 }
