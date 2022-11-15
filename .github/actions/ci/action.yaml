@@ -9,6 +9,11 @@ runs:
         go vet ./...
         go test -v -race -covermode=atomic -coverprofile=coverage.out ./...
 
+    - name: build
+      shell: bash
+      run: |
+        go build
+
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v3
 
