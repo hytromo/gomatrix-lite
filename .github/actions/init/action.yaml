@@ -1,0 +1,15 @@
+name: Initialize
+description: Checks out repo and installs deps
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: "1.19.3"
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        go get ./...

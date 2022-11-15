@@ -1,0 +1,19 @@
+name: CI
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run vet, lint and tests
+      shell: bash
+      run: |
+        go vet ./...
+        go test -v -race -covermode=atomic -coverprofile=coverage.out ./...
+
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v3
+
+    # - uses: codecov/codecov-action@v2
+    #   name: Upload to Codecov
+    #   with:
+    #     files: ./coverage.out
+    #     flags: unittests

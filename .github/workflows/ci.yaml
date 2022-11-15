@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: init
+        uses: ./.github/actions/init
+      - name: ci
+        uses: ./.github/actions/ci
