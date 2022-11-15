@@ -1,4 +1,4 @@
-# gomatrix-lite ![ci](https://github.com/hytromo/gomatrix-lite/actions/workflows/ci.yml/badge.svg) [![go report](https://goreportcard.com/badge/github.com/hytromo/gomatrix-lite)](https://goreportcard.com/report/github.com/hytromo/gomatrix-lite) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f20fda5fa90e43599b7b4c076ec169d1)](https://www.codacy.com/gh/hytromo/gomatrix-lite/dashboard) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# gomatrix-lite ![ci](https://github.com/hytromo/gomatrix-lite/actions/workflows/ci.yaml/badge.svg) [![go report](https://goreportcard.com/badge/github.com/hytromo/gomatrix-lite)](https://goreportcard.com/report/github.com/hytromo/gomatrix-lite) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f20fda5fa90e43599b7b4c076ec169d1)](https://www.codacy.com/gh/hytromo/gomatrix-lite/dashboard) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <h1 align="center">
 <br>
