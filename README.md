@@ -16,13 +16,13 @@ Now with pride mode 🏳️‍🌈😎
 <br>
 </h1>
 
-- [Usage](#usage)
-- [Installation](#installation)
-- [Purpose](#purpose)
+-   [Usage](#usage)
+-   [Installation](#installation)
+-   [Purpose](#purpose)
 
-# Usage
+## Usage
 
-```
+```bash
 Usage:
   gomatrix-lite [OPTIONS]
 
@@ -40,11 +40,11 @@ Help Options:
 
 Use the numbers 0-9 to control the speed. Use `q` or Ctrl+C to quit the app.
 
-# Installation
+## Installation
 
 Go over to the <a href="../../releases">Releases</a> and pick up a tarballed binary for your OS/arch, or a packaged file (deb, rpm etc)
 
-# Purpose
+## Purpose
 
 This is obviously just a toy to see how easy it'd be to make something like `cmatrix` using Golang.
 
