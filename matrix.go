@@ -1,3 +1,4 @@
+// the only package of this app
 package main
 
 import (
@@ -8,7 +9,7 @@ import (
 )
 
 // the minimum length of a vertical string of characters
-const MIN_STRING_LENGTH = 8
+const minStringLength = 8
 
 func initMatrix(xmax int, ymax int, config *Config) ([][]rune, []tcell.Style, tcell.Style, []uint64) {
 	// the characters
@@ -76,11 +77,11 @@ func min(a, b int) int {
 	return b
 }
 
-func Matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell.Screen) {
+func matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell.Screen) {
 	xmaxOld := *xmax
 	ymaxOld := *ymax
 	config := *_config
-	minStringLength := min(MIN_STRING_LENGTH, *ymax)
+	currentMinStringLength := min(minStringLength, *ymax)
 
 	s := *_s
 
@@ -99,11 +100,12 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell
 			s.Clear()
 			xmaxOld = *xmax
 			ymaxOld = *ymax
-			minStringLength = min(MIN_STRING_LENGTH, *ymax)
+			currentMinStringLength = min(minStringLength, *ymax)
 			matrix, colorGradient, whiteStyle, columnDrag = initMatrix(*xmax, *ymax, &config)
 		}
 
-		if minStringLength < 4 {
+		if *ymax < 4 {
+			// too small of a terminal to do something here
 			continue
 		}
 
@@ -129,7 +131,7 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell
 
 						// fuck the police 😎
 						// here we are at the head so we know that we have at least minStringLength chars that we can skip because they are drawn
-						row -= (minStringLength - 1)
+						row -= (currentMinStringLength - 1)
 					}
 
 					if (row == last) && (matrix[column][row] != 0) {
@@ -149,7 +151,7 @@ func Matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell
 							// this vertical-string has been chosen to be ended if it has the minimum length
 
 							hasMinLength := true
-							for i := 0; i < minStringLength; i++ {
+							for i := 0; i < currentMinStringLength; i++ {
 								if matrix[column][row+i] == 0 {
 									hasMinLength = false
 									break

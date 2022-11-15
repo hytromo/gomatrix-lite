@@ -1,3 +1,4 @@
+// the only package of this app
 package main
 
 import (
@@ -6,6 +7,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
+// Colors contains the start and end colors of the gradient
 type Colors struct {
 	start tcell.Color
 	end   tcell.Color

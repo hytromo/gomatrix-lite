@@ -1,5 +1,6 @@
+# gomatrix-lite ![ci](https://github.com/hytromo/gomatrix-lite/actions/workflows/ci.yml/badge.svg) [![go report](https://goreportcard.com/badge/github.com/hytromo/gomatrix-lite)](https://goreportcard.com/report/github.com/hytromo/gomatrix-lite) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f20fda5fa90e43599b7b4c076ec169d1)](https://www.codacy.com/gh/hytromo/gomatrix-lite/dashboard) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 <h1 align="center">
-gomatrix-lite
 <br>
 <br>
 <img src="./usage.gif" alt="Showcase of using the tool" width="800">
@@ -15,13 +16,13 @@ Now with pride mode 🏳️‍🌈😎
 <br>
 </h1>
 
-- [Usage](#usage)
-- [Installation](#installation)
-- [Purpose](#purpose)
+-   [Usage](#usage)
+-   [Installation](#installation)
+-   [Purpose](#purpose)
 
-# Usage
+## Usage
 
-```
+```bash
 Usage:
   gomatrix-lite [OPTIONS]
 
@@ -39,11 +40,11 @@ Help Options:
 
 Use the numbers 0-9 to control the speed. Use `q` or Ctrl+C to quit the app.
 
-# Installation
+## Installation
 
 Go over to the <a href="../../releases">Releases</a> and pick up a tarballed binary for your OS/arch, or a packaged file (deb, rpm etc)
 
-# Purpose
+## Purpose
 
 This is obviously just a toy to see how easy it'd be to make something like `cmatrix` using Golang.
 

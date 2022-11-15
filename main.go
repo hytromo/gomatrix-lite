@@ -1,3 +1,4 @@
+// the only package of this app
 package main
 
 import (
@@ -9,7 +10,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-const VERSION = "0.0.4"
+const appVersion = "0.0.5"
 
 func getWaitTimeForSpeed(speed int) uint64 {
 	return 20 - uint64(speed*2)
@@ -46,7 +47,7 @@ func main() {
 	config := ParseArgs()
 
 	if config.showVersion {
-		fmt.Println(VERSION)
+		fmt.Println(appVersion)
 		return
 	}
 
@@ -70,8 +71,8 @@ func main() {
 	defer quit()
 
 	xmax, ymax := s.Size()
-	var waitTime uint64 = getWaitTimeForSpeed(config.speed)
+	var waitTime = getWaitTimeForSpeed(config.speed)
 
-	go Matrix(&xmax, &ymax, &waitTime, &config, &s)
+	go matrix(&xmax, &ymax, &waitTime, &config, &s)
 	eventLoop(&xmax, &ymax, &waitTime, &s)
 }
