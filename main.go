@@ -10,7 +10,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-const app_version = "0.0.5"
+const appVersion = "0.0.5"
 
 func getWaitTimeForSpeed(speed int) uint64 {
 	return 20 - uint64(speed*2)
@@ -47,7 +47,7 @@ func main() {
 	config := ParseArgs()
 
 	if config.showVersion {
-		fmt.Println(app_version)
+		fmt.Println(appVersion)
 		return
 	}
 

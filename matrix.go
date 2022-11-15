@@ -1,3 +1,4 @@
+// the only package of this app
 package main
 
 import (
@@ -8,7 +9,7 @@ import (
 )
 
 // the minimum length of a vertical string of characters
-const MIN_STRING_LENGTH = 8
+const minStringLength = 8
 
 func initMatrix(xmax int, ymax int, config *Config) ([][]rune, []tcell.Style, tcell.Style, []uint64) {
 	// the characters
@@ -80,7 +81,7 @@ func matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell
 	xmaxOld := *xmax
 	ymaxOld := *ymax
 	config := *_config
-	currentMinStringLength := min(MIN_STRING_LENGTH, *ymax)
+	currentMinStringLength := min(minStringLength, *ymax)
 
 	s := *_s
 
@@ -99,7 +100,7 @@ func matrix(xmax *int, ymax *int, waitTimeMs *uint64, _config *Config, _s *tcell
 			s.Clear()
 			xmaxOld = *xmax
 			ymaxOld = *ymax
-			currentMinStringLength = min(MIN_STRING_LENGTH, *ymax)
+			currentMinStringLength = min(minStringLength, *ymax)
 			matrix, colorGradient, whiteStyle, columnDrag = initMatrix(*xmax, *ymax, &config)
 		}
 

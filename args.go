@@ -1,3 +1,4 @@
+// the only package of this app
 package main
 
 import (
@@ -21,7 +22,7 @@ var opts struct {
 	Pride bool `long:"pride" description:"Add LGBT Pride flag colors, overrides -color"`
 }
 
-/* runtime configuration */
+/* Config holds the runtime configuration */
 type Config struct {
 	showVersion bool
 	colors      Colors
@@ -31,7 +32,7 @@ type Config struct {
 	pride       bool
 }
 
-/* parses CLI flags and returns the runtime config */
+/* ParseArgs parses CLI flags and returns the runtime config */
 func ParseArgs() Config {
 	_, err := flags.Parse(&opts)
 
