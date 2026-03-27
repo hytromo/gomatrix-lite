@@ -1,4 +1,3 @@
-// the only package of this app
 package main
 
 import (
@@ -10,7 +9,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-const appVersion = "0.0.5"
+const appVersion = "0.0.6"
 
 func getWaitTimeForSpeed(speed int) uint64 {
 	return 20 - uint64(speed*2)

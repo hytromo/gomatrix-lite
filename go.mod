@@ -1,6 +1,6 @@
 module github.com/hytromo/gomatrix-lite
 
-go 1.19
+go 1.26.1
 
 require (
 	github.com/gdamore/tcell/v2 v2.5.3
