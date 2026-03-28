@@ -50,6 +50,11 @@ func main() {
 		return
 	}
 
+	if config.banner != "" {
+		printBannerFitted(config.banner, config.bannerFont)
+		return
+	}
+
 	s, err := tcell.NewScreen()
 	if err != nil {
 		log.Fatalf("%+v", err)

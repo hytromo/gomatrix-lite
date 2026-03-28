@@ -11,6 +11,10 @@ import (
 var opts struct {
 	Version bool `short:"v" long:"version" description:"Show version"`
 
+	Banner string `long:"banner" description:"Print a banner and exit"`
+
+	BannerFont string `long:"banner-font" description:"Banner font name, case-sensitive"`
+
 	Color string `short:"c" long:"color" description:"Matrix colors, can be up to 2 comma-separated colors for gradient" default:"000000,00FF00"`
 
 	Speed int `short:"s" long:"speed" description:"The speed, 0 through 9" default:"8"`
@@ -25,6 +29,8 @@ var opts struct {
 /* Config holds the runtime configuration */
 type Config struct {
 	showVersion bool
+	banner      string
+	bannerFont  string
 	colors      Colors
 	speed       int
 	async       bool
@@ -55,6 +61,8 @@ func ParseArgs() Config {
 
 	return Config{
 		showVersion: opts.Version,
+		banner:      opts.Banner,
+		bannerFont:  opts.BannerFont,
 		colors:      parseColors(opts.Color),
 		async:       !opts.NoAsync,
 		bold:        !opts.NoBold,

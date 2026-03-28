@@ -1,2 +1,5 @@
 gomatrix-lite
 .vscode
+
+.gomodcache
+.gopath
