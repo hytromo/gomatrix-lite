@@ -51,7 +51,7 @@ func main() {
 	}
 
 	if config.banner != "" {
-		printBannerFitted(config.banner, config.bannerFont)
+		printBannerFitted(config.banner, config.bannerFont, config.bannerReplaceSimilar)
 		return
 	}
 

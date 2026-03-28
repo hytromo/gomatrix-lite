@@ -15,6 +15,8 @@ var opts struct {
 
 	BannerFont string `long:"banner-font" description:"Banner font name, case-sensitive"`
 
+	BannerReplaceSimilar bool `long:"banner-replace-with-similar" description:"Replace banner characters with random similar ASCII characters"`
+
 	Color string `short:"c" long:"color" description:"Matrix colors, can be up to 2 comma-separated colors for gradient" default:"000000,00FF00"`
 
 	Speed int `short:"s" long:"speed" description:"The speed, 0 through 9" default:"8"`
@@ -28,23 +30,26 @@ var opts struct {
 
 /* Config holds the runtime configuration */
 type Config struct {
-	showVersion bool
-	banner      string
-	bannerFont  string
-	colors      Colors
-	speed       int
-	async       bool
-	bold        bool
-	pride       bool
+	showVersion          bool
+	banner               string
+	bannerFont           string
+	bannerReplaceSimilar bool
+	colors               Colors
+	speed                int
+	async                bool
+	bold                 bool
+	pride                bool
 }
 
 /* ParseArgs parses CLI flags and returns the runtime config */
 func ParseArgs() Config {
-	_, err := flags.Parse(&opts)
+	parser := flags.NewParser(&opts, flags.Default)
+	_, err := parser.Parse()
 
 	if err != nil {
 		flagError := err.(*flags.Error)
 		if flagError.Type == flags.ErrHelp {
+			printBannerFontHelp()
 			os.Exit(0)
 		} else if flagError.Type == flags.ErrUnknownFlag {
 			fmt.Println("Use --help to view all available options.")
@@ -59,14 +64,19 @@ func ParseArgs() Config {
 		opts.Speed = 8
 	}
 
+	if !isAllowedBannerFont(opts.BannerFont) {
+		exitInvalidBannerFont(opts.BannerFont)
+	}
+
 	return Config{
-		showVersion: opts.Version,
-		banner:      opts.Banner,
-		bannerFont:  opts.BannerFont,
-		colors:      parseColors(opts.Color),
-		async:       !opts.NoAsync,
-		bold:        !opts.NoBold,
-		pride:       opts.Pride,
-		speed:       opts.Speed,
+		showVersion:          opts.Version,
+		banner:               opts.Banner,
+		bannerFont:           opts.BannerFont,
+		bannerReplaceSimilar: opts.BannerReplaceSimilar,
+		colors:               parseColors(opts.Color),
+		async:                !opts.NoAsync,
+		bold:                 !opts.NoBold,
+		pride:                opts.Pride,
+		speed:                opts.Speed,
 	}
 }

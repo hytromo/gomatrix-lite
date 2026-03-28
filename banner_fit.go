@@ -16,14 +16,35 @@ const (
 	defaultBannerRows    = 24
 )
 
-func printBannerFitted(phrase string, font string) {
+func printBannerFitted(phrase string, font string, replaceSimilar bool) {
 	columns, rows := getBannerTerminalSize()
 	lines := buildFittedBannerLines(phrase, font, columns, rows)
 	if len(lines) == 0 {
 		return
 	}
 
-	fmt.Print(strings.Join(lines, "\n"))
+	// vertical centering
+	if len(lines) < rows {
+		slack := rows - len(lines)
+		top := slack / 2
+		bottom := slack - top
+		out := make([]string, 0, top+len(lines)+bottom)
+		for range top {
+			out = append(out, "")
+		}
+		out = append(out, lines...)
+		for range bottom {
+			out = append(out, "")
+		}
+		lines = out
+	}
+
+	output := strings.Join(lines, "\n")
+	if replaceSimilar {
+		output = replaceAsciiSimilar(output)
+	}
+
+	fmt.Print(output)
 }
 
 func getBannerTerminalSize() (int, int) {
